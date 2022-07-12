@@ -1,6 +1,6 @@
-package views.table;
+package model;
 
-public class StudentTable {
+public class Student {
     private String id;
     private String name;
     private String email;
@@ -8,10 +8,10 @@ public class StudentTable {
     private String address;
     private String nic;
 
-    public StudentTable() {
+    public Student() {
     }
 
-    public StudentTable(String id, String name, String email, String contact, String address, String nic) {
+    public Student(String id, String name, String email, String contact, String address, String nic) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -66,5 +66,17 @@ public class StudentTable {
 
     public void setNic(String nic) {
         this.nic = nic;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", contact='" + contact + '\'' +
+                ", address='" + address + '\'' +
+                ", nic='" + nic + '\'' +
+                '}';
     }
 }
