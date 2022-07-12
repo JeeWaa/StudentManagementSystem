@@ -64,7 +64,21 @@ public class StudentFormController {
         }
     }
 
-    public void updateStudent(ActionEvent actionEvent) {
+    public void updateStudent(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        Student student = new Student(
+                txtID.getText(),
+                txtName.getText(),
+                txtEmail.getText(),
+                txtContact.getText(),
+                txtAddress.getText(),
+                txtNIC.getText()
+        );
+
+        if (new StudentController().updateStudent(student)) {
+            new Alert(Alert.AlertType.CONFIRMATION, "Update").show();
+        }else {
+            new Alert(Alert.AlertType.WARNING, "Not Update").show();
+        }
     }
 
     public void deleteStudent(ActionEvent actionEvent) {

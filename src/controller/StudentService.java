@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public interface StudentService {
     public boolean saveStudent(Student s) throws SQLException, ClassNotFoundException;
-    public boolean updateStudent(Student s);
-    public boolean deleteStudent(String id);
-    public Student getStudent(String id);
+    public boolean updateStudent(Student s) throws SQLException, ClassNotFoundException;
+    public boolean deleteStudent(String id) throws SQLException, ClassNotFoundException;
+    public Student getStudent(String id) throws SQLException, ClassNotFoundException;
     public ArrayList<Student> getAllStudent() throws SQLException, ClassNotFoundException;
 }

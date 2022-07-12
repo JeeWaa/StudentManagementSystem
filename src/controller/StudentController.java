@@ -26,18 +26,45 @@ public class StudentController implements StudentService {
     }
 
     @Override
-    public boolean updateStudent(Student s) {
-        return false;
+    public boolean updateStudent(Student s) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement("UPDATE Student SET name=?, email=?, contact=?, address=?, nic=? WHERE id=?");
+        preparedStatement.setObject(1,s.getName());
+        preparedStatement.setObject(2,s.getEmail());
+        preparedStatement.setObject(3,s.getContact());
+        preparedStatement.setObject(4,s.getAddress());
+        preparedStatement.setObject(5,s.getNic());
+        preparedStatement.setObject(6,s.getId());
+        return preparedStatement.executeUpdate() > 0;
     }
 
     @Override
-    public boolean deleteStudent(String id) {
-        return false;
+    public boolean deleteStudent(String id) throws SQLException, ClassNotFoundException {
+        if (DbConnection.getInstance().getConnection().prepareStatement("DELETE FROM Student WHERE id='"+id+"'").executeUpdate()>0) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
     @Override
-    public Student getStudent(String id) {
-        return null;
+    public Student getStudent(String id) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement("SELECT * FROM Student WHERE id=?");
+        preparedStatement.setObject(1, id);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            return new Student(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6)
+                    );
+        }else {
+            return null;
+        }
     }
 
     @Override
