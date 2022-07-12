@@ -59,6 +59,7 @@ public class StudentFormController {
 
         if (new StudentController().saveStudent(student)) {
             new Alert(Alert.AlertType.CONFIRMATION, "Saved").show();
+            initialize();
         }else {
             new Alert(Alert.AlertType.WARNING, "Not save").show();
         }
@@ -76,15 +77,40 @@ public class StudentFormController {
 
         if (new StudentController().updateStudent(student)) {
             new Alert(Alert.AlertType.CONFIRMATION, "Update").show();
+            initialize();
         }else {
             new Alert(Alert.AlertType.WARNING, "Not Update").show();
         }
     }
 
-    public void deleteStudent(ActionEvent actionEvent) {
+    public void deleteStudent(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        if (new StudentController().deleteStudent(txtID.getText())) {
+            new Alert(Alert.AlertType.CONFIRMATION, "Delete").show();
+            initialize();
+        }else {
+            new Alert(Alert.AlertType.WARNING, "Not Delete").show();
+        }
     }
 
-    public void searchID(ActionEvent actionEvent) {
+    public void searchID(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        String id = txtID.getText();
+
+        Student student = new StudentController().getStudent(id);
+
+        if (student == null) {
+            new Alert(Alert.AlertType.WARNING, "Empty").show();
+        }else {
+            dataSet(student);
+        }
+    }
+
+    private void dataSet(Student student) {
+        txtID.setText(student.getId());
+        txtName.setText(student.getName());
+        txtEmail.setText(student.getEmail());
+        txtContact.setText(student.getContact());
+        txtAddress.setText(student.getAddress());
+        txtNIC.setText(student.getNic());
     }
 
     private void setStudentTable(ArrayList<Student> students) {

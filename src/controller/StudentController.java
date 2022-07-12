@@ -27,7 +27,7 @@ public class StudentController implements StudentService {
 
     @Override
     public boolean updateStudent(Student s) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement("UPDATE Student SET name=?, email=?, contact=?, address=?, nic=? WHERE id=?");
+        PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement("UPDATE Student SET studentName=?, email=?, contact=?, address=?, nic=? WHERE studentId=?");
         preparedStatement.setObject(1,s.getName());
         preparedStatement.setObject(2,s.getEmail());
         preparedStatement.setObject(3,s.getContact());
@@ -39,7 +39,7 @@ public class StudentController implements StudentService {
 
     @Override
     public boolean deleteStudent(String id) throws SQLException, ClassNotFoundException {
-        if (DbConnection.getInstance().getConnection().prepareStatement("DELETE FROM Student WHERE id='"+id+"'").executeUpdate()>0) {
+        if (DbConnection.getInstance().getConnection().prepareStatement("DELETE FROM Student WHERE studentId='"+id+"'").executeUpdate() > 0) {
             return true;
         }else {
             return false;
@@ -48,7 +48,7 @@ public class StudentController implements StudentService {
 
     @Override
     public Student getStudent(String id) throws SQLException, ClassNotFoundException {
-        PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement("SELECT * FROM Student WHERE id=?");
+        PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement("SELECT * FROM Student WHERE studentId=?");
         preparedStatement.setObject(1, id);
 
         ResultSet resultSet = preparedStatement.executeQuery();
